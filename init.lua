@@ -10,6 +10,9 @@ vim.opt.autoindent = true      -- 继承前一行的缩进
 vim.opt.smartindent = true     -- 根据代码结构自动缩进
 vim.opt.smarttab = true        -- 插入 Tab 时智能处理缩进
 
+-- 关闭自动换行
+vim.o.wrap = true
+
 -- 可选：为特定文件类型设置不同的缩进
 vim.api.nvim_create_autocmd("FileType", {
     pattern = {"html", "css"},
