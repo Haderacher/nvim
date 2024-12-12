@@ -1,5 +1,30 @@
 return {
     {
+        "lewis6991/gitsigns.nvim",
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        ---@module "ibl"
+        ---@type ibl.config
+        opts = {},
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+    },
+    {
+        "nvim-tree/nvim-web-devicons",
+    },
+    {
+        "nvim-lualine/lualine.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+    {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.5",
         dependencies = { "nvim-lua/plenary.nvim" },

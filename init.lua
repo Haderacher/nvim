@@ -3,6 +3,38 @@ require("config.remaps")
 require("config.autocmds")
 require("config.options")
 require("config.lsp")
+require("config.lualine")
+require("nvim-web-devicons")
+require("nvim-tree")
+
+require("ibl").setup()
+require("gitsigns").setup()
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
+
+-- empty setup using defaults
+require("nvim-tree").setup()
+
+-- OR setup with some options
+require("nvim-tree").setup({
+    sort = {
+        sorter = "case_sensitive",
+    },
+    view = {
+        width = 30,
+    },
+    renderer = {
+        group_empty = true,
+    },
+    filters = {
+        dotfiles = true,
+    },
+})
 
 vim.diagnostic.config({
     update_in_insert = true, -- 在 Insert 模式更新诊断
@@ -128,7 +160,6 @@ cmp.setup.cmdline({ "/", "?" }, {
         { name = "buffer" },
     },
 })
-
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
