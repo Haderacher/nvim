@@ -30,6 +30,11 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd("ModeChanged", {
+    pattern = "*",
+    command = "nohls",
+})
+
 -- 自动切换相对行号，仅在普通模式下启用
 -- vim.api.nvim_create_autocmd("InsertEnter", {
 --    callback = function()

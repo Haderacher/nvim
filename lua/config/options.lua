@@ -9,12 +9,9 @@ vim.opt.softtabstop = 4    -- 回退缩进时的宽度
 vim.opt.autoindent = true  -- 继承前一行的缩进
 vim.opt.smartindent = true -- 根据代码结构自动缩进
 vim.opt.smarttab = true    -- 插入 Tab 时智能处理缩进
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-
 vim.g.autoformat = true
-
 vim.g.lazyvim_picker = "auto"
 
 -- if the completion engine supports the AI source,
@@ -25,7 +22,7 @@ vim.g.root_lsp_ignore = { "copilot" }
 
 -- opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus"
 
-vim.opt.scrolloff = 4    -- Lines of context
+vim.opt.scrolloff = 6    -- Lines of context
 vim.opt.wrap = false
 vim.opt.linebreak = true -- Wrap lines at convenient points
 vim.opt.list = true
@@ -41,11 +38,13 @@ vim.opt.fillchars = {
 }
 
 vim.opt.foldlevel = 99
+vim.opt.signcolumn = "yes"
 
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 200
 if vim.fn.has("nvim-0.10") == 1 then
+    vim.opt.smoothscroll = true
     vim.opt.wrap = false
     vim.opt.foldmethod = "expr"
     vim.opt.foldexpr = "nvim_treesitter#foldexpr()"

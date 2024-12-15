@@ -7,12 +7,13 @@ require("config.lualine")
 require("nvim-web-devicons")
 require("nvim-tree")
 
-require("ibl").setup()
 require("gitsigns").setup()
+require("Comment").setup()
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.opt.smoothscroll = true
 
 -- optionally enable 24-bit colour
 vim.opt.termguicolors = true
@@ -66,6 +67,8 @@ require("nvim-treesitter.configs").setup({
         "html",
         "css",
         "yaml",
+        "typescript",
+        "vue",
     },
 
     -- Install parsers synchronously (only applied to `ensure_installed`) sync_install = false, Automatically install missing parsers when entering buffer Recommendation: set to false if you don't have `tree-sitter` CLI installed locally

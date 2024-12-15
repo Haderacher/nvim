@@ -17,7 +17,7 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "clangd", "gopls", "tailwindcss" },
+    ensure_installed = { "volar", "lua_ls", "clangd", "gopls", "tailwindcss", "pyright" },
     automatic_installation = true, -- 自动安装未安装的 LSP 服务器
 })
 
@@ -86,6 +86,9 @@ lspconfig.markdown_oxide.setup({
     filetypes = { "markdown" },
 })
 
+require("lspconfig").pyright.setup({})
+
+require("lspconfig").volar.setup({})
 -- 配置 clangd
 lspconfig.clangd.setup({
     cmd = { "clangd", "--offset-encoding=utf-16" }, -- clangd 命令
