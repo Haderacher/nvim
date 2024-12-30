@@ -1,5 +1,16 @@
 return {
     {
+        "kmontocam/nvim-conda",
+        dependencies = { "nvim-lua/plenary.nvim" },
+    },
+    {
+        "windwp/nvim-ts-autotag",
+    },
+    {
+        "norcalli/nvim-colorizer.lua",
+    },
+    { "nvim-java/nvim-java" },
+    {
         "github/copilot.vim",
     },
     {
@@ -91,11 +102,10 @@ return {
                 require("mason-null-ls").setup({
                     ensure_installed = {
                         "goimports", -- Go 格式化工具
-                        "gofumpt", -- 改进版 gofmt
+                        "gofumpt",  -- 改进版 gofmt
                         "golangci-lint", -- Go 静态分析工具
                         "prettier", -- 前端代码格式化
-                        "stylua", -- Lua 代码格式化
-                        "markdownlint",
+                        "stylua",   -- Lua 代码格式化
                     },
                     automatic_installation = true, -- 自动安装未安装的工具
                 })

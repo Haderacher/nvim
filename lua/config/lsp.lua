@@ -17,14 +17,15 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-    ensure_installed = { "volar", "lua_ls", "clangd", "gopls", "tailwindcss", "pyright" },
+    ensure_installed = { "dockerls", "pylsp", "hyprls", "lua_ls", "clangd", "gopls", "tailwindcss", "volar" },
     automatic_installation = true, -- 自动安装未安装的 LSP 服务器
 })
 
 local lspconfig = require("lspconfig")
 local on_attach = function(client, bufnr)
+    local opts = { noremap = true, silent = true }
+    vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
-
     -- 定义快捷键
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)        -- 跳转到定义
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)       -- 跳转到声明
@@ -41,54 +42,80 @@ local on_attach = function(client, bufnr)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)      -- 跳转到下一个诊断
 end
 
--- 自动为所有 LSP 配置 on_attach
-require("mason-lspconfig").setup_handlers({
-    function(server_name)
-        lspconfig[server_name].setup({
-            on_attach = on_attach,
-            capabilities = require("cmp_nvim_lsp").default_capabilities(), -- 自动补全功能
-        })
-    end,
+lspconfig.dockerls.setup({
+    filetypes = { "Dockerfile", "dockerfile" },
 })
 
-lspconfig.lua_ls.setup({
+require("lspconfig").pylsp.setup({
     settings = {
-        Lua = {
-            runtime = {
-                -- 使用 LuaJIT 运行时（Neovim 内部使用的是 LuaJIT）
-                version = "LuaJIT",
-            },
-            diagnostics = {
-                -- 让 Lua LSP 识别 Neovim 的 `vim` 全局变量
-                globals = { "vim" },
-            },
-            workspace = {
-                -- 让 LSP 关联 Neovim 的运行时路径
-                library = {
-                    vim.fn.expand("$VIMRUNTIME/lua"),
-                    vim.fn.stdpath("config") .. "/lua",
-                },
-                -- 避免提示第三方插件的警告
-                checkThirdParty = false,
-            },
-            telemetry = {
-                enable = false, -- 禁用遥测数据收集
+        python = {
+
+            analysis = {
+                --                typeCheckingMode = "strict", -- 更严格的类型检查
+                diagnosticMode = "workspace", -- 检查整个工作区
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
             },
         },
     },
 })
 
-lspconfig.ansiblels.setup({
-    filetypes = { "yaml", "yml" },
+lspconfig.priettier.setup({
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "css",
+        "scss",
+        "json",
+        "jsonc",
+        "graphql",
+        "markdown",
+    },
 })
 
+lspconfig.hyprls.setup({
+    filetypes = { ".conf" },
+})
+
+lspconfig.lua_ls.setup({
+    on_init = function(client)
+        if client.workspace_folders then
+            local path = client.workspace_folders[1].name
+            if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+                return
+            end
+        end
+
+        client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+            runtime = {
+                -- Tell the language server which version of Lua you're using
+                -- (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+                checkThirdParty = false,
+                library = {
+                    vim.env.VIMRUNTIME,
+                    -- Depending on the usage, you might want to add additional paths here.
+                    -- "${3rd}/luv/library"
+                    -- "${3rd}/busted/library",
+                },
+                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+                -- library = vim.api.nvim_get_runtime_file("", true)
+            },
+        })
+    end,
+    settings = {
+        Lua = {},
+    },
+})
 lspconfig.markdown_oxide.setup({
     filetypes = { "markdown" },
 })
 
-require("lspconfig").pyright.setup({})
-
-require("lspconfig").volar.setup({})
 -- 配置 clangd
 lspconfig.clangd.setup({
     cmd = { "clangd", "--offset-encoding=utf-16" }, -- clangd 命令
@@ -126,4 +153,14 @@ lspconfig.clangd.setup({
         })
     end,
     capabilities = require("cmp_nvim_lsp").default_capabilities(), -- 补全能力支持（可选）
+})
+
+-- 自动为所有 LSP 配置 on_attach
+require("mason-lspconfig").setup_handlers({
+    function(server_name)
+        lspconfig[server_name].setup({
+            on_attach = on_attach,
+            capabilities = require("cmp_nvim_lsp").default_capabilities(), -- 自动补全功能
+        })
+    end,
 })

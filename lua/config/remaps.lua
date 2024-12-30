@@ -1,5 +1,17 @@
 local builtin = require("telescope.builtin")
 
+-- 跳转到下一个 {
+vim.api.nvim_set_keymap("n", "]{", "/{<CR>:nohls<CR>", { noremap = true, silent = true })
+
+-- 跳转到下一个 }
+vim.api.nvim_set_keymap("n", "]}", "/}<CR>", { noremap = true, silent = true })
+
+-- 跳转到上一个 {
+vim.api.nvim_set_keymap("n", "[{", "?{<CR>", { noremap = true, silent = true })
+
+-- 跳转到上一个 }
+vim.api.nvim_set_keymap("n", "[}", "?}<CR>", { noremap = true, silent = true })
+
 --vim.keymap.set("n", "<leader>pv", ":Ex<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<leader>pv", ":NvimTreeOpen<CR>", { noremap = true, silent = true })

@@ -1,3 +1,10 @@
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.smoothscroll = true
+
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
 -- 显示行号
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -55,3 +62,18 @@ else
 end
 
 vim.g.markdown_recommended_style = 0
+
+if vim.fn.has("unix") == 1 and vim.fn.executable("wl-copy") == 1 and vim.fn.executable("wl-paste") == 1 then
+    vim.g.clipboard = {
+        name = "wl-clipboard",
+        copy = {
+            ["+"] = "wl-copy",
+            ["*"] = "wl-copy",
+        },
+        paste = {
+            ["+"] = "wl-paste",
+            ["*"] = "wl-paste",
+        },
+        cache_enabled = 1,
+    }
+end

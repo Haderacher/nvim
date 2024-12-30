@@ -1,15 +1,33 @@
 require("config.lazy")
+require("config.lsp")
 require("config.remaps")
 require("config.autocmds")
 require("config.options")
-require("config.lsp")
 require("config.lualine")
 require("nvim-web-devicons")
 require("nvim-tree")
-
+require("ibl").setup()
 require("gitsigns").setup()
 require("Comment").setup()
-
+require("java").setup()
+require("lspconfig").jdtls.setup({})
+require("colorizer").setup()
+require("nvim-ts-autotag").setup({
+    opts = {
+        -- Defaults
+        enable_close = true,     -- Auto close tags
+        enable_rename = true,    -- Auto rename pairs of tags
+        enable_close_on_slash = false, -- Auto close on trailing </
+    },
+    -- Also override individual filetype configs, these take priority.
+    -- Empty by default, useful if one of the "opts" global settings
+    -- doesn't work well in a specific filetype
+    per_filetype = {
+        ["html"] = {
+            enable_close = false,
+        },
+    },
+})
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -48,6 +66,10 @@ vim.diagnostic.config({
     },
 })
 
+vim.diagnostic.open_float({
+    border = "rounded",
+    max_width = 80, -- 设置浮动窗口最大宽度
+})
 -- 关闭自动换行
 
 vim.cmd("colorscheme catppuccin")
@@ -56,6 +78,7 @@ vim.cmd("colorscheme catppuccin")
 require("nvim-treesitter.configs").setup({
     -- A list of parser names, or "all" (the listed parsers MUST always be installed)
     ensure_installed = {
+        "json",
         "cpp",
         "c",
         "lua",
@@ -187,12 +210,7 @@ null_ls.setup({
     sources = {
         -- 格式化工具
         null_ls.builtins.formatting.stylua, -- Lua 格式化
-        --     null_ls.builtins.formatting.goimports, -- 自动整理导入包和格式化 Go 代码
-        --     null_ls.builtins.formatting.gofumpt,  -- 格式化 Go 代码（改进版 gofmt）
-        -- 诊断工具
-        null_ls.builtins.diagnostics.markdownlint, -- Markdown 语法诊断
-        --     null_ls.builtins.diagnostics.golangci_lint, -- Go 代码静态分析
-        -- 补全工具
+        null_ls.builtins.formatting.prettier, -- 通用代码格式化
         null_ls.builtins.completion.spell, -- 拼写检查
     },
     on_attach = function(client, bufnr)
