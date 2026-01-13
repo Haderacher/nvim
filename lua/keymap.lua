@@ -14,14 +14,6 @@ keymap.set("n", "<leader>sv", "<C-w>v", { desc = "垂直分屏" })
 -- 水平分屏
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "水平分屏" })
 
-keymap.set("n", "<C-d>", "<C-d>zz", { desc = "向下翻页并居中" })
-keymap.set("n", "<C-u>", "<C-u>zz", { desc = "向上翻页并居中" })
-keymap.set("n", "n", "nzzzv", { desc = "跳转下一个搜索结果并居中" })
-keymap.set("n", "N", "Nzzzv", { desc = "跳转上一个搜索结果并居中" })
-keymap.set("n", "{", "{zz")
-keymap.set("n", "}", "}zz")
-keymap.set("n", "J", "mzJ`z")
-
 ---------- 插件集成 (以 Telescope 为例) ----------
 local builtin = require('telescope.builtin')
 keymap.set('n', '<leader>pf', builtin.find_files, { desc = "查找文件" })
