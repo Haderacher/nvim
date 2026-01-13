@@ -21,8 +21,7 @@ opt.termguicolors = true  -- 开启真彩色支持（Kitty 必须开启）
 opt.cursorline = true     -- 高亮当前行
 opt.signcolumn = "yes"    -- 始终显示左侧符号栏（防止插件图标闪烁）
 
--- scrolloff
-opt.scrolloff = 999
+opt.scrolloff = 20
 
 
 opt.splitright = true     -- 垂直分屏在右侧
