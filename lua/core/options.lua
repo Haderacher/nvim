@@ -23,7 +23,6 @@ opt.smartcase = true      -- 如果搜索包含大写字母，则不忽略大小
 -- 外观
 opt.termguicolors = true  -- 开启真彩色支持（Kitty 必须开启）
 opt.cursorline = true     -- 高亮当前行
-opt.signcolumn = "yes"    -- 始终显示左侧符号栏（防止插件图标闪烁）
 
 opt.scrolloff = 20
 
