@@ -15,6 +15,7 @@ opt.tabstop = 4           -- 1个 Tab 等于 4 个空格
 opt.shiftwidth = 4        -- 自动缩进时占 4 个空格
 opt.expandtab = true      -- 将 Tab 转换为空格
 opt.autoindent = true     -- 自动缩进
+opt.showmatch = true
 
 -- 搜索
 opt.ignorecase = true     -- 搜索时忽略大小写
