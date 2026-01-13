@@ -3,6 +3,7 @@ local g = vim.g
 g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
+opt.signcolumn = "yes:2"
 -- 行号
 opt.relativenumber = true -- 相对行号（极力推荐，方便跳转）
 opt.number = true         -- 显示当前行号
