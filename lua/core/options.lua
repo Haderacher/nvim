@@ -8,6 +8,7 @@ opt.signcolumn = "yes:2"
 opt.relativenumber = true -- 相对行号（极力推荐，方便跳转）
 opt.number = true         -- 显示当前行号
 opt.wrap = false
+opt.numberwidth = 4
 
 -- 缩进
 opt.tabstop = 4           -- 1个 Tab 等于 4 个空格
