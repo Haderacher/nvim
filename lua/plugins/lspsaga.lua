@@ -15,7 +15,12 @@ return {
             },
             ui = {
                 border = 'rounded', -- 圆角边框
-            }
+            },
+            lightbulb = {
+                enable = false, -- 彻底关掉灯泡
+                sign = true,    -- 如果设为 true，它会显示在左侧符号栏而不是光标旁
+                virtual_text = false, -- 禁用光标旁的虚拟文本灯泡
+            },
         })
     end,
 }
