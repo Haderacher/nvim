@@ -15,47 +15,24 @@ keymap.set("n", "<leader>sv", "<C-w>v", { desc = "垂直分屏" })
 keymap.set("n", "<leader>sh", "<C-w>s", { desc = "水平分屏" })
 
 ---------- 插件集成 (以 Telescope 为例) ----------
-local builtin = require('telescope.builtin')
-keymap.set('n', '<leader>pf', builtin.find_files, { desc = "查找文件" })
-  config = function()
-    require("nvim-tree").setup({
-      sort_by = "case_sensitive",
-      view = {
-        width = 30,
-        side = "left", -- 树在左边
-      },
-      renderer = {
-        group_empty = true, -- 空文件夹合并显示
-        highlight_opened_files = "all", -- 高亮已打开的文件
-      },
-      filters = {
-        dotfiles = false, -- 是否隐藏点文件（如 .gitignore）
-      },
-      -- 交互行为
-      actions = {
-        open_file = {
-          quit_on_open = false, -- 打开文件后不关闭树
-        },
-      },
-    })
-  end,
-keymap.set('n', '<leader>pg', builtin.live_grep, { desc = "全局搜索" })
+local builtin = require("telescope.builtin")
+keymap.set("n", "<leader>pf", builtin.find_files, { desc = "查找文件" })
 
+-- 跳转到上一个诊断
+vim.keymap.set("n", "[d", function()
+	vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = "Go to previous diagnostic" })
 
--- 跳转到上一个/下一个错误
-keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = "上一个错误" })
-keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = "下一个错误" })
+-- 跳转到下一个诊断
+vim.keymap.set("n", "]d", function()
+	vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = "Go to next diagnostic" })
 
 -- 悬浮窗显示当前行的详细错误
-keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = "显示错误详情" })
+keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "显示错误详情" })
 
 -- 将所有错误放入列表 (Quickfix List)
-keymap.set('n', '<leader>q', vim.diagnostic.setqflist, { desc = "打开错误列表" })
-
--- keymap.set('n', 'gd', builtin.lsp_definitions, { desc = "Telescope 跳转定义" })
-
--- 查看实现 (Go to Implementation) - Spring Boot 开发必备
--- keymap.set('n', 'gi', builtin.lsp_implementations, { desc = "Telescope 查看实现" })
+keymap.set("n", "<leader>q", vim.diagnostic.setqflist, { desc = "打开错误列表" })
 
 -- Lspsaga 预览定义
 keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek Definition" })
@@ -63,13 +40,10 @@ keymap.set("n", "gp", "<cmd>Lspsaga peek_definition<CR>", { desc = "Peek Definit
 -- Lspsaga 查找引用 (比 Telescope 更简洁的列表)
 -- keymap.set("n", "gr", "<cmd>Lspsaga finder<CR>", { desc = "LSP Finder" })
 
+vim.keymap.set("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+
 -- 快速查看行内诊断错误
 keymap.set("n", "<leader>cd", "<cmd>Lspsaga show_line_diagnostics<CR>")
-
--- 开关文件浏览器
--- keymap.set("n", "<leader>ee", "<cmd>NvimTreeToggle<CR>", { desc = "切换文件树" })
--- 聚焦到文件浏览器
--- keymap.set("n", "<leader>pv", "<cmd>NvimTreeFocus<CR>", { desc = "聚焦文件树" })
 
 -- 在 Visual 模式下，按大写 J 整体向下移动选中块
 keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "向下移动选中的代码块" })
@@ -77,4 +51,7 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "向下移动选中的代码�
 -- 在 Visual 模式下，按大写 K 整体向上移动选中块
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "向上移动选中的代码块" })
 
-keymap.set("n", "pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- 使用 <leader>uw (un-wrap) 来切换
+vim.keymap.set("n", "<leader>uw", "<cmd>set wrap!<CR>", { desc = "Toggle Line Wrap" })
