@@ -4,6 +4,7 @@ g.loaded_netrw = 1
 g.loaded_netrwPlugin = 1
 
 opt.signcolumn = "yes:2"
+opt.laststatus = 3
 -- 行号
 opt.relativenumber = true -- 相对行号（极力推荐，方便跳转）
 opt.number = true -- 显示当前行号
@@ -45,3 +46,7 @@ vim.diagnostic.config({
 		prefix = "",
 	},
 })
+
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldlevel = 99
