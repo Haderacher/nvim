@@ -7,23 +7,28 @@ return {
 	},
 	config = function()
 		require("nvim-tree").setup({
-			sort_by = "case_sensitive",
+			sort = {
+				sorter = "case_sensitive",
+			},
+			actions = {},
 			view = {
+				centralize_selection = true,
 				width = 30,
-				side = "left", -- 树在左边
 			},
 			renderer = {
-				group_empty = true, -- 空文件夹合并显示
-				highlight_opened_files = "all", -- 高亮已打开的文件
+				group_empty = true,
 			},
 			filters = {
-				dotfiles = false, -- 是否隐藏点文件（如 .gitignore）
+				dotfiles = false,
+				git_ignored = false,
 			},
-			-- 交互行为
-			actions = {
-				open_file = {
-					quit_on_open = false, -- 打开文件后不关闭树
+			update_focused_file = {
+				enable = true,
+				update_root = {
+					enable = false,
+					ignore_list = {},
 				},
+				exclude = false,
 			},
 		})
 	end,

@@ -15,6 +15,35 @@ return {
 		-- for example
 		provider = "copilot", -- 指定使用 copilot 作为后端
 		auto_suggestions_provider = "copilot",
+		behaviour = {
+			auto_approve_tool_permissions = false,
+		},
+		windows = {
+			width = 50,
+		},
+		selector = {
+			exclude_auto_select = { "NvimTree" },
+		},
+	},
+	keys = {
+		{
+			"<leader>a+",
+			function()
+				local tree_ext = require("avante.extensions.nvim_tree")
+				tree_ext.add_file()
+			end,
+			desc = "Select file in NvimTree",
+			ft = "NvimTree",
+		},
+		{
+			"<leader>a-",
+			function()
+				local tree_ext = require("avante.extensions.nvim_tree")
+				tree_ext.remove_file()
+			end,
+			desc = "Deselect file in NvimTree",
+			ft = "NvimTree",
+		},
 	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
@@ -24,7 +53,7 @@ return {
 		"nvim-telescope/telescope.nvim", -- for file_selector provider telescope
 		"hrsh7th/nvim-cmp", -- autocompletion for avante commands and mentions
 		"ibhagwan/fzf-lua", -- for file_selector provider fzf
-		"stevearc/dressing.nvim", -- for input provider dressing
+		--"stevearc/dressing.nvim", -- for input provider dressing
 		"folke/snacks.nvim", -- for input provider snacks
 		"nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
 		"zbirenbaum/copilot.lua", -- for providers='copilot'

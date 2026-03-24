@@ -10,6 +10,8 @@ return {
 			ensure_installed = {
 				"lua_ls",
 				"asm_lsp",
+				"clangd",
+				"esbonio",
 			},
 		})
 	end,

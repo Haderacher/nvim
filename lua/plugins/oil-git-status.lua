@@ -1,9 +1,10 @@
 return {
-  "refractalize/oil-git-status.nvim", enable = false,
+	"refractalize/oil-git-status.nvim",
+	enabled = false,
 
-  dependencies = {
-    "stevearc/oil.nvim",
-  },
+	dependencies = {
+		"stevearc/oil.nvim",
+	},
 
-  config = true,
+	config = true,
 }

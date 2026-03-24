@@ -23,20 +23,30 @@ opt.showmatch = true
 -- 搜索
 opt.ignorecase = true -- 搜索时忽略大小写
 opt.smartcase = true -- 如果搜索包含大写字母，则不忽略大小写
+opt.hlsearch = false
 
 -- 外观
 opt.termguicolors = true -- 开启真彩色支持（Kitty 必须开启）
-opt.cursorline = true -- 高亮当前行
+opt.cursorline = false -- 高亮当前行
 
-opt.scrolloff = 20
+opt.scrolloff = 999
 
 opt.splitright = true -- 垂直分屏在右侧
 opt.splitbelow = true -- 水平分屏在下方
 
 vim.diagnostic.config({
-	virtual_text = true, -- 在行尾显示错误文字 signs = true,                  -- 在左侧行号栏显示图标 (Error/Warn) update_in_insert = false,      -- 插入模式时不更新（避免打字时乱跳）
-	underline = true, -- 给错误代码加下划线/波浪线
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "✘",
+			[vim.diagnostic.severity.WARN] = "▲",
+			[vim.diagnostic.severity.HINT] = "⚑",
+			[vim.diagnostic.severity.INFO] = "»",
+		},
+	},
+	virtual_text = false, -- 在行尾显示错误文字 signs = true,                  -- 在左侧行号栏显示图标 (Error/Warn) update_in_insert = false,      -- 插入模式时不更新（避免打字时乱跳）
+	underline = false, -- 给错误代码加下划线/波浪线
 	severity_sort = true, -- 按照严重程度排序
+	update_in_insert = true,
 	float = {
 		focused = false,
 		style = "minimal",
@@ -50,3 +60,22 @@ vim.diagnostic.config({
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 99
+
+vim.opt.clipboard = "unnamedplus"
+
+-- 保持单词完整（不会在单词中间断开）
+vim.opt.linebreak = true
+
+-- 折行时保持与上一行相同的缩进
+vim.opt.breakindent = true
+
+-- 在折行处显示特殊符号（可选）
+vim.opt.showbreak = "↪ "
+
+vim.opt.colorcolumn = "80"
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+
+vim.api.nvim_set_hl(0, "IlluminatedWordText", { underline = true, bold = true, force = true })
+vim.api.nvim_set_hl(0, "IlluminatedWordRead", { underline = true, bold = true, force = true })
+vim.api.nvim_set_hl(0, "IlluminatedWordWrite", { underline = true, bold = true, force = true })

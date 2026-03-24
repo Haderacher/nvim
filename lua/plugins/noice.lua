@@ -21,6 +21,14 @@ return {
 					["vim.lsp.util.stylize_markdown"] = true,
 					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
 				},
+				signature = {
+					auto_open = {
+						enabled = false,
+						trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
+						luasnip = true, -- Will open signature help when jumping to Luasnip insert nodes
+						throttle = 50, -- Debounce lsp signature help request by 50ms
+					},
+				},
 			},
 			-- you can enable a preset for easier configuration
 			presets = {
@@ -30,6 +38,20 @@ return {
 				inc_rename = false, -- enables an input dialog for inc-rename.nvim
 				lsp_doc_border = false, -- add a border to hover docs and signature help
 			},
+			notify = {
+				name,
+			},
 		})
+		vim.keymap.set({ "n", "i", "s" }, "<c-f>", function()
+			if not require("noice.lsp").scroll(4) then
+				return "<c-f>"
+			end
+		end, { silent = true, expr = true })
+
+		vim.keymap.set({ "n", "i", "s" }, "<c-b>", function()
+			if not require("noice.lsp").scroll(-4) then
+				return "<c-b>"
+			end
+		end, { silent = true, expr = true })
 	end,
 }

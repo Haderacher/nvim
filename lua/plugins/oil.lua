@@ -1,8 +1,16 @@
 return {
 	"stevearc/oil.nvim",
+	enabled = false,
 	---@module 'oil'
 	---@type oil.SetupOpts
-	opts = {},
+	opts = {
+		float = {
+			border = "rounded",
+		},
+		confirmation = {
+			border = "rounded",
+		},
+	},
 	-- Optional dependencies
 	dependencies = { { "nvim-mini/mini.icons", opts = {} } },
 	-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
@@ -18,5 +26,6 @@ return {
 				show_hidden = true,
 			},
 		})
+		-- vim.keymap.set("n", "<leader>pv", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 	end,
 }

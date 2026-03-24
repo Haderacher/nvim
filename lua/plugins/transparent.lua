@@ -1,3 +1,50 @@
 return {
 	"xiyaowong/transparent.nvim",
+	enabled = false,
+	config = function()
+		require("transparent").setup({
+			extra_groups = { -- table/string: additional groups that should be cleared
+				"BufferLineTabClose",
+				"BufferlineBufferSelected",
+				"BufferLineFill",
+				"BufferLineBackground",
+				"BufferLineSeparator",
+				"BufferLineIndicatorSelected",
+
+				"IndentBlanklineChar",
+
+				-- make floating windows transparent
+				"LspFloatWinNormal",
+				"Normal",
+				"NormalFloat",
+				"FloatBorder",
+				"TelescopeNormal",
+				"PickersBorder",
+				"TelescopeBorder",
+				"TelescopePromptBorder",
+				"SagaBorder",
+				"SagaNormal",
+				"BlinkCmpMenu",
+				"BlinkCmpMenuBorder",
+				"BlinkCmpDoc",
+				"BlinkCmpDocBorder",
+				"BlinkCmpSignatureHelp",
+				"BlinkCmpSignatureHelpBorder",
+				"NoiceCmdlinePopup",
+				"NoiceCmdlinePopupBorder",
+				"NoiceConfirm",
+				"NoiceConfirmBorder",
+				"NoicePopup",
+				"NoicePopupBorder",
+				"NoicePopupmenu",
+				"NoicePopupmenuBorder",
+				"NoiceScrollbar",
+				"NoiceScrollbarThumb",
+				"NoiceSplit",
+				"NoiceSplitBorder",
+				"NoiceMini",
+				"BufferLineFill",
+			},
+		})
+	end,
 }

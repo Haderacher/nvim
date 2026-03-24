@@ -7,20 +7,28 @@ return {
 		-- your configuration comes here
 		-- or leave it empty to use the default settings
 		-- refer to the configuration section below
+		animate = { enabled = true },
 		bigfile = { enabled = true },
 		dashboard = {
-			enabled = true,
+			enabled = false,
 		},
 		explorer = { enabled = false },
 		indent = { enabled = true },
-		input = { enabled = true },
 		picker = { enabled = true },
-		notifier = { enabled = true },
+		notifier = { enabled = false },
 		quickfile = { enabled = true },
 		scope = { enabled = true },
-		statuscolumn = { enabled = true },
+		statuscolumn = {
+			enabled = true,
+		},
 		words = { enabled = true },
 		lazygit = { enabled = true },
+		zen = {
+			enabled = false,
+			toggles = {
+				dim = false,
+			},
+		},
 	},
 	keys = {
 		-- find
@@ -309,14 +317,14 @@ return {
 			end,
 			desc = "LSP Workspace Symbols",
 		},
+		-- {
+		-- 	"<leader>z",
+		-- 	function()
+		-- 		Snacks.zen()
+		-- 	end,
+		-- 	desc = "Toggle Zen Mode",
+		-- },
 		-- other
-		{
-			"<leader>z",
-			function()
-				Snacks.zen()
-			end,
-			desc = "Toggle Zen Mode",
-		},
 		{
 			"<leader>Z",
 			function()
@@ -337,13 +345,6 @@ return {
 				Snacks.scratch.select()
 			end,
 			desc = "Select Scratch Buffer",
-		},
-		{
-			"<leader>n",
-			function()
-				Snacks.notifier.show_history()
-			end,
-			desc = "Notification History",
 		},
 		{
 			"<leader>bd",
@@ -373,13 +374,6 @@ return {
 				Snacks.lazygit()
 			end,
 			desc = "Lazygit",
-		},
-		{
-			"<leader>un",
-			function()
-				Snacks.notifier.hide()
-			end,
-			desc = "Dismiss All Notifications",
 		},
 		{
 			"]]",
@@ -486,7 +480,6 @@ return {
 				else
 					vim.print = _G.dd
 				end
-
 				-- Create some toggle mappings
 				Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>us")
 				Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
@@ -496,10 +489,10 @@ return {
 				Snacks.toggle
 					.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
 					:map("<leader>uc")
-				Snacks.toggle.treesitter():map("<leader>uT")
 				Snacks.toggle
 					.option("background", { off = "light", on = "dark", name = "Dark Background" })
 					:map("<leader>ub")
+				Snacks.toggle.treesitter():map("<leader>uT")
 				Snacks.toggle.inlay_hints():map("<leader>uh")
 				Snacks.toggle.indent():map("<leader>ug")
 				Snacks.toggle.dim():map("<leader>uD")
